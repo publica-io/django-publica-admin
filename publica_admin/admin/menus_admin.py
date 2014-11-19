@@ -35,5 +35,12 @@ else:
             return super(MenuAdmin, self).get_form(request, obj, **kwargs)
 
 
+    class LinkAdmin(admin.ModelAdmin):
+
+        autocomplete_lookup_fields = {
+            'generic': [['content_type', 'object_id'], ],
+        }
+
+
     admin.site.register(Menu, MenuAdmin)
-    admin.site.register(Link)
+    admin.site.register(Link, LinkAdmin)
