@@ -1,1 +1,1 @@
-from .widgets import *
+from .widgets_admin import *
