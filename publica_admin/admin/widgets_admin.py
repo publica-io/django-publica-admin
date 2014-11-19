@@ -11,6 +11,7 @@ else:
     class WidgetMapPOIInlineAdmin(admin.StackedInline):
 
         model = WidgetMapPOI
+        extra = 0
 
     class WidgetMapAdmin(admin.ModelAdmin):
 
