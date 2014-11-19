@@ -20,3 +20,4 @@ else:
         ]
 
     admin.site.register(WidgetMap, WidgetMapAdmin)
+    admin.site.register(Widget)

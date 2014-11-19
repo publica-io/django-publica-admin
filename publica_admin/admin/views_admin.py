@@ -11,6 +11,10 @@ else:
         model = ViewLinkage
         extra = 0
 
+        autocomplete_lookup_fields = {
+	        'generic': [['content_type', 'object_id'], ],
+	    }
+
     class ViewAdmin(admin.ModelAdmin):
 
         inlines = [
