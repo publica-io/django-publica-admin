@@ -6,6 +6,9 @@ except ImportError:
     pass
 else:
 
+    from images_admin import ImageInline
+    
+
     class MenuItemInline(admin.StackedInline):
 
         model = MenuItem
@@ -40,6 +43,10 @@ else:
         autocomplete_lookup_fields = {
             'generic': [['content_type', 'object_id'], ],
         }
+
+        inlines = [
+            ImageInline,
+        ]
 
 
     admin.site.register(Menu, MenuAdmin)
