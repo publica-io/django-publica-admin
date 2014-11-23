@@ -13,6 +13,8 @@ else:
     from attrs_admin import AttrInline
     from images_admin import ImageInline
 
+    from ..mixins import *
+
 
     class WidgetAdmin(admin.ModelAdmin):
         
@@ -20,6 +22,9 @@ else:
             AttrInline,
             ImageInline,
         ]
+
+        class Media:
+            js = TinyMCETextMixin.Media.js
 
 
     class WidgetMapPOIInlineAdmin(admin.StackedInline):

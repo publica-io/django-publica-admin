@@ -40,7 +40,7 @@ else:
 
     class LinkAdmin(admin.ModelAdmin):
 
-        autocomplete_lookup_fields = {
+        related_lookup_fields = {
             'generic': [['content_type', 'object_id'], ],
         }
 

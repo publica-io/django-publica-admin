@@ -8,4 +8,20 @@ except ImportError:
     pass
 else:
 
-    admin.site.register(Page)
+    from django.contrib import admin
+    from images_admin import ImageInline
+
+    from ..mixins import *
+
+
+    class PageAdmin(admin.ModelAdmin):
+        
+        inlines = [
+            ImageInline,
+        ]
+
+        class Media:
+            js = TinyMCETextMixin.Media.js
+
+
+    admin.site.register(Page, PageAdmin)
