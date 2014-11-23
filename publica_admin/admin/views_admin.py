@@ -8,13 +8,15 @@ else:
 
     from images_admin import ImageInline
 
+    from ..mixins import *
+
 
     class ViewLinkageInline(admin.StackedInline):
 
         model = ViewLinkage
         extra = 0
 
-        autocomplete_lookup_fields = {
+        related_lookup_fields = {
             'generic': [['content_type', 'object_id'], ],
         }
 
@@ -24,5 +26,9 @@ else:
             ViewLinkageInline,
             ImageInline,
         ]
+
+        class Media:
+            js = TinyMCETextMixin.Media.js
+
 
     admin.site.register(View, ViewAdmin)
