@@ -27,6 +27,12 @@ else:
             js = TinyMCETextMixin.Media.js
 
 
+    class WidgetModalAdmin(WidgetAdmin):
+
+        class Media:
+            js = TinyMCETextMixin.Media.js
+
+
     class WidgetMapPOIInlineAdmin(admin.StackedInline):
 
         model = WidgetMapPOI
@@ -42,3 +48,4 @@ else:
 
     admin.site.register(WidgetMap, WidgetMapAdmin)
     admin.site.register(Widget, WidgetAdmin)
+    admin.site.register(WidgetModal, WidgetModalAdmin)
