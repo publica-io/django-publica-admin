@@ -16,7 +16,7 @@ else:
     from ..mixins import *
 
 
-    class WidgetAdmin(admin.ModelAdmin):
+    class WidgetAdmin(TemplatesAdminMixin, admin.ModelAdmin):
 
         inlines = [
             AttrInline,
