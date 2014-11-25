@@ -14,7 +14,7 @@ else:
     from ..mixins import *
 
 
-    class PageAdmin(admin.ModelAdmin):
+    class PageAdmin(TemplatesAdminMixin, admin.ModelAdmin):
         
         inlines = [
             ImageInline,

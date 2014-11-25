@@ -16,7 +16,7 @@ else:
     from ..mixins import *
 
 
-    class ModalAdmin(admin.ModelAdmin):
+    class ModalAdmin(TemplatesAdminMixin, admin.ModelAdmin):
         
         inlines = [
             AttrInline,

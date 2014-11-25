@@ -20,7 +20,7 @@ else:
             'generic': [['content_type', 'object_id'], ],
         }
 
-    class ViewAdmin(admin.ModelAdmin):
+    class ViewAdmin(TemplatesAdminMixin, admin.ModelAdmin):
 
         inlines = [
             ViewLinkageInline,
