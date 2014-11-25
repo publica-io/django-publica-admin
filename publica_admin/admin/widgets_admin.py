@@ -17,7 +17,7 @@ else:
 
 
     class WidgetAdmin(admin.ModelAdmin):
-        
+
         inlines = [
             AttrInline,
             ImageInline,
@@ -38,7 +38,8 @@ else:
         inlines = [
             WidgetMapPOIInlineAdmin,
         ]
-        
+
 
     admin.site.register(WidgetMap, WidgetMapAdmin)
+    admin.site.register(WidgetMapPOI, WidgetAdmin)
     admin.site.register(Widget, WidgetAdmin)
