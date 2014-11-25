@@ -8,12 +8,15 @@ else:
     from django.contrib import admin
     from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModelAdmin
 
-    # Because Widgets depend on django-attrs & django-publica-images; we will assume these
-    # imports will work; despite the defensive importing strategy found in those files.
     from attrs_admin import AttrInline
     from images_admin import ImageInline
 
     from ..mixins import *
+
+
+    class WidgetLinkAspectInline(admin.ModelAdmin):
+
+        model = WidgetLinkAspect
 
 
     class WidgetAdmin(TemplatesAdminMixin, admin.ModelAdmin):
