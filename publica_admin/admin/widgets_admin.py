@@ -14,9 +14,16 @@ else:
     from ..mixins import *
 
 
-    class WidgetLinkAspectInline(admin.ModelAdmin):
+    class WidgetLinkAspectInline(admin.StackedInline):
 
         model = WidgetLinkAspect
+        extra = 0
+
+        exclude = (
+            'text',
+            'short_title',
+            'slug',
+        )
 
 
     class WidgetAdmin(TemplatesAdminMixin, admin.ModelAdmin):
@@ -24,7 +31,12 @@ else:
         inlines = [
             AttrInline,
             ImageInline,
+            WidgetLinkAspectInline
         ]
+
+        exclude = (
+            'preview_template',
+        )
 
         class Media:
             js = TinyMCETextMixin.Media.js
@@ -45,7 +57,9 @@ else:
     class WidgetMapAdmin(WidgetAdmin):
 
         inlines = [
-            WidgetMapPOIInlineAdmin,
+            AttrInline,
+            ImageInline,
+            WidgetLinkAspectInline
         ]
 
 

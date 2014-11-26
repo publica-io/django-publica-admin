@@ -17,9 +17,20 @@ else:
     class ModalLinkAspectInline(admin.StackedInline):
 
         model = ModalLinkAspect
+        extra = 0
+
+        exclude = (
+            'text',
+            'short_title',
+            'slug',
+        )
 
 
     class ModalAdmin(TemplatesAdminMixin, admin.ModelAdmin):
+
+        exclude = (
+            'preview_template',
+        )
         
         inlines = [
             AttrInline,
