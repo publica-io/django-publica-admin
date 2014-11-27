@@ -63,6 +63,13 @@ else:
         extra = 0
 
 
+    class WidgetMapPOIAdmin(admin.ModelAdmin):
+
+        inlines = [
+            AttrInline,
+            ImageInline,
+        ]
+
     class WidgetMapAdmin(WidgetAdmin):
 
         exclude = (
@@ -77,6 +84,6 @@ else:
 
 
     admin.site.register(WidgetMap, WidgetMapAdmin)
-    admin.site.register(WidgetMapPOI, WidgetAdmin)
+    admin.site.register(WidgetMapPOI, WidgetMapPOIAdmin)
     admin.site.register(Widget, WidgetAdmin)
     admin.site.register(WidgetModal, WidgetModalAdmin)

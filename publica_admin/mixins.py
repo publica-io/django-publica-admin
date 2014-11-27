@@ -78,6 +78,6 @@ class TemplatesAdminMixin(object):
         field = super(TemplatesAdminMixin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
         if db_field.name in ('template', 'preview_template',):
-            field.queryset = field.queryset.filter(name__istartswith = self.model._meta.app_label)
+            field.queryset = field.queryset.filter(_name__istartswith = self.model._meta.app_label)
 
         return field
