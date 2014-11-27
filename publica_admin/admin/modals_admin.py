@@ -8,16 +8,26 @@ else:
     from django.contrib import admin
     from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModelAdmin
 
-    # Because Modals depend on django-attrs & django-publica-images; we will assume these
-    # imports will work; despite the defensive importing strategy found in those files.
     from attrs_admin import AttrInline
     from images_admin import ImageInline
 
     from ..mixins import *
 
 
+    class ModalLinkAspectInline(admin.StackedInline):
+
+        model = ModalLinkAspect
+        extra = 0
+
+        exclude = (
+            'text',
+            'short_title',
+            'slug',
+        )
+
+
     class ModalAdmin(PublicaAdminMixin, TemplatesAdminMixin, admin.ModelAdmin):
-        
+
         exclude = (
             'preview_template',
         )
@@ -25,6 +35,7 @@ else:
         inlines = [
             AttrInline,
             ImageInline,
+            ModalLinkAspectInline
         ]
 
         class Media:

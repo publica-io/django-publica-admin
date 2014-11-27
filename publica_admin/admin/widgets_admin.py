@@ -8,24 +8,36 @@ else:
     from django.contrib import admin
     from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModelAdmin
 
-    # Because Widgets depend on django-attrs & django-publica-images; we will assume these
-    # imports will work; despite the defensive importing strategy found in those files.
     from attrs_admin import AttrInline
     from images_admin import ImageInline
 
     from ..mixins import *
 
 
-    class WidgetAdmin(PublicaAdminMixin, TemplatesAdminMixin, admin.ModelAdmin):
+    class WidgetLinkAspectInline(admin.StackedInline):
+
+        model = WidgetLinkAspect
+        extra = 0
 
         exclude = (
-            'preview_template',
+            'text',
+            'short_title',
+            'slug',
         )
+
+
+    class WidgetAdmin(TemplatesAdminMixin, admin.ModelAdmin):
+
 
         inlines = [
             AttrInline,
             ImageInline,
+            WidgetLinkAspectInline
         ]
+
+        exclude = (
+            'preview_template',
+        )
 
         class Media:
             js = TinyMCETextMixin.Media.js
@@ -58,7 +70,9 @@ else:
         )
         
         inlines = [
-            WidgetMapPOIInlineAdmin,
+            AttrInline,
+            ImageInline,
+            WidgetLinkAspectInline
         ]
 
 
