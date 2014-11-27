@@ -6,6 +6,7 @@ except ImportError:
 else:
 
     from django.contrib import admin
+    from grappelli.forms import GrappelliSortableHiddenMixin
     from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModelAdmin
 
     from attrs_admin import AttrInline
@@ -52,6 +53,25 @@ else:
         class Media:
             js = TinyMCETextMixin.Media.js
 
+    class WidgetListItemInline(GrappelliSortableHiddenMixin, admin.StackedInline):
+
+        model = WidgetListAspect
+        extra = 0
+
+        sortable_field_name = "order"
+
+
+    class WidgetListAdmin(WidgetAdmin):
+
+        exclude = (
+            'featured',
+            'preview_template',
+            'template',
+        )
+        inlines = [
+            WidgetListItemInline,
+        ]
+
 
     class WidgetMapPOIInlineAdmin(admin.StackedInline):
 
@@ -87,3 +107,4 @@ else:
     admin.site.register(WidgetMapPOI, WidgetMapPOIAdmin)
     admin.site.register(Widget, WidgetAdmin)
     admin.site.register(WidgetModal, WidgetModalAdmin)
+    admin.site.register(WidgetList, WidgetListAdmin)
