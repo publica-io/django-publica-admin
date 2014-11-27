@@ -7,4 +7,11 @@ else:
 
     from django.contrib import admin
 
-    admin.site.register(Template)
+    from ..mixins import *
+
+    
+    class TemplateAdmin(PublicaAdminMixin, admin.ModelAdmin):
+    	pass
+
+
+    admin.site.register(Template, TemplateAdmin)

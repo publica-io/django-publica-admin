@@ -20,8 +20,13 @@ else:
             'generic': [['content_type', 'object_id'], ],
         }
 
-    class ViewAdmin(TemplatesAdminMixin, admin.ModelAdmin):
 
+    class ViewAdmin(TemplatesAdminMixin, PublicaAdminMixin, admin.ModelAdmin):
+
+        exclude = (
+            'preview_template',
+        )
+        
         inlines = [
             ViewLinkageInline,
             ImageInline,

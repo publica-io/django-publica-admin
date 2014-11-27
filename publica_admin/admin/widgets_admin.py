@@ -16,7 +16,11 @@ else:
     from ..mixins import *
 
 
-    class WidgetAdmin(TemplatesAdminMixin, admin.ModelAdmin):
+    class WidgetAdmin(PublicaAdminMixin, TemplatesAdminMixin, admin.ModelAdmin):
+
+        exclude = (
+            'preview_template',
+        )
 
         inlines = [
             AttrInline,
@@ -29,11 +33,19 @@ else:
 
     class WidgetModalAdmin(WidgetAdmin):
 
+        exclude = (
+            'preview_template',
+        )
+
         class Media:
             js = TinyMCETextMixin.Media.js
 
 
     class WidgetMapPOIInlineAdmin(admin.StackedInline):
+
+        exclude = (
+            'preview_template',
+        )
 
         model = WidgetMapPOI
         extra = 0
@@ -41,6 +53,10 @@ else:
 
     class WidgetMapAdmin(WidgetAdmin):
 
+        exclude = (
+            'preview_template',
+        )
+        
         inlines = [
             WidgetMapPOIInlineAdmin,
         ]

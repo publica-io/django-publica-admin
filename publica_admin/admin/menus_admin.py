@@ -1,17 +1,26 @@
-from django.contrib import admin
 
 try:
     from menus.models import *
 except ImportError:
     pass
 else:
+    from django.contrib import admin
+    from grappelli.forms import GrappelliSortableHiddenMixin
 
     from images_admin import ImageInline
+
+    from ..mixins import PublicaAdminMixin
     
 
-    class MenuItemInline(admin.StackedInline):
+    class MenuItemInline(GrappelliSortableHiddenMixin, admin.StackedInline):
 
+        exclude = (
+            'is_featured',
+        )
+        extra = 0
         model = MenuItem
+
+        sortable_field_name = "order"
 
         def formfield_for_foreignkey(self, db_field, request, **kwargs):
 
@@ -26,7 +35,7 @@ else:
             return field
 
 
-    class MenuAdmin(admin.ModelAdmin):
+    class MenuAdmin(PublicaAdminMixin, admin.ModelAdmin):
 
         inlines = [
             MenuItemInline
@@ -38,7 +47,7 @@ else:
             return super(MenuAdmin, self).get_form(request, obj, **kwargs)
 
 
-    class LinkAdmin(admin.ModelAdmin):
+    class LinkAdmin(PublicaAdminMixin, admin.ModelAdmin):
 
         related_lookup_fields = {
             'generic': [['content_type', 'object_id'], ],

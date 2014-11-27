@@ -16,8 +16,12 @@ else:
     from ..mixins import *
 
 
-    class ModalAdmin(TemplatesAdminMixin, admin.ModelAdmin):
+    class ModalAdmin(PublicaAdminMixin, TemplatesAdminMixin, admin.ModelAdmin):
         
+        exclude = (
+            'preview_template',
+        )
+
         inlines = [
             AttrInline,
             ImageInline,

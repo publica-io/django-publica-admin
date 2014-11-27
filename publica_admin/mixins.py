@@ -1,5 +1,66 @@
 from django.conf import settings
 
+try:
+    from polymorphic import PolymorphicModel
+except ImportError:
+    PolymorphicModel = None
+
+from entropy.mixins import *
+
+
+list_display_order = [
+    TitleMixin,
+    NameMixin,
+    SlugMixin,
+    LinkURLMixin,
+    EnabledMixin,
+]
+
+field_display_order = [
+    EnabledMixin,
+    TitleMixin,
+    NameMixin,
+    SlugMixin
+]
+
+class PublicaAdminMixin(object):
+    '''
+    The PublicaAdminMixin quite magically assembles ModelAdmin arguments
+    depending on the existence of Entropy mixins.
+
+    The goal is to produce a very consistent and magical admin based on
+    predetermined entropy mixins.
+    '''
+
+    def get_list_display(self, request):
+        '''
+        Assemble a list_display based on the existence
+        of Entropy mixins.
+        '''
+        for mixin in list_display_order:
+
+            # non-poly
+            if mixin in self.model.__bases__:
+                for field in mixin._meta.fields:
+                    if field.name not in self.list_display:
+                        self.list_display += (field.name, )
+
+            if PolymorphicModel is not None:
+                # If we have polymorphic models; recurse and try 
+                # to discover the base class.
+                bases = [b for b in self.model.__bases__
+                    if issubclass(b, PolymorphicModel)
+                    and not b._meta.abstract and not b._meta.proxy]
+                for base in bases:
+                    for mixin_base in base.__bases__:
+                        if mixin == mixin_base:
+                            for field in mixin._meta.fields:
+                                if field.name not in self.list_display:
+                                    self.list_display += (field.name, )
+
+
+        return super(PublicaAdminMixin, self).get_list_display(request)
+
 
 class TinyMCETextMixin(object):
 
