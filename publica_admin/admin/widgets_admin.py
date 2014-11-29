@@ -48,6 +48,7 @@ else:
 
         exclude = (
             'preview_template',
+            'template',
         )
 
         class Media:
@@ -67,6 +68,7 @@ else:
             'featured',
             'preview_template',
             'template',
+            'type',
         )
         inlines = [
             WidgetListItemInline,
@@ -94,6 +96,7 @@ else:
 
         exclude = (
             'preview_template',
+            'template',
         )
         
         inlines = [
