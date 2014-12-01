@@ -10,7 +10,7 @@ else:
     from ..mixins import *
 
     
-    class TemplateAdmin(PublicaAdminMixin, admin.ModelAdmin):
+    class TemplateAdmin(PublicaModelAdminMixin, admin.ModelAdmin):
     	pass
 
 

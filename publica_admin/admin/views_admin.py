@@ -21,7 +21,7 @@ else:
         }
 
 
-    class ViewAdmin(TemplatesAdminMixin, PublicaAdminMixin, admin.ModelAdmin):
+    class ViewAdmin(TemplatesAdminMixin, PublicaModelAdminMixin, admin.ModelAdmin):
 
         exclude = (
             'preview_template',

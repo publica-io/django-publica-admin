@@ -9,7 +9,7 @@ else:
 
     from images_admin import ImageInline
 
-    from ..mixins import PublicaAdminMixin
+    from ..mixins import PublicaModelAdminMixin
     
 
     class MenuItemInline(GrappelliSortableHiddenMixin, admin.StackedInline):
@@ -35,7 +35,7 @@ else:
             return field
 
 
-    class MenuAdmin(PublicaAdminMixin, admin.ModelAdmin):
+    class MenuAdmin(PublicaModelAdminMixin, admin.ModelAdmin):
 
         inlines = [
             MenuItemInline
@@ -47,7 +47,7 @@ else:
             return super(MenuAdmin, self).get_form(request, obj, **kwargs)
 
 
-    class LinkAdmin(PublicaAdminMixin, admin.ModelAdmin):
+    class LinkAdmin(PublicaModelAdminMixin, admin.ModelAdmin):
 
         related_lookup_fields = {
             'generic': [['content_type', 'object_id'], ],

@@ -1,4 +1,6 @@
 from django.conf import settings
+from django.core.urlresolvers import reverse 
+from django.contrib.contenttypes.models import ContentType
 
 try:
     from polymorphic import PolymorphicModel
@@ -6,6 +8,44 @@ except ImportError:
     PolymorphicModel = None
 
 from entropy.mixins import *
+
+
+
+# Model Mixins
+
+
+class PublicaAdminMixin(models.Model):
+    '''
+    A class with common Admin URLs and functions
+    '''
+
+    class Meta:
+        abstract = True
+
+    def get_add_url(self):
+        return reverse(
+            'admin:{}_{}_add'.format(self._meta.app_label, self._meta.model_name),
+        )
+
+    def get_change_url(self):
+        return reverse(
+            'admin:{}_{}_change'.format(self._meta.app_label, self._meta.model_name),
+            args=(self.id, )
+        )
+
+    def get_change_list_url(self):
+        return reverse(
+            'admin:{}_{}_changelist'.format(self._meta.app_label, self._meta.model_name)
+        )
+
+    def get_history_url(self):
+        return reverse(
+            'admin:{}_{}_history'.format(self._meta.app_label, self._meta.model_name),
+            args=(self.id, )
+        )
+
+
+# Model Admin Mixins
 
 
 list_display_order = [
@@ -23,9 +63,9 @@ field_display_order = [
     SlugMixin
 ]
 
-class PublicaAdminMixin(object):
+class PublicaModelAdminMixin(object):
     '''
-    The PublicaAdminMixin quite magically assembles ModelAdmin arguments
+    The PublicaModelAdminMixin quite magically assembles ModelAdmin arguments
     depending on the existence of Entropy mixins.
 
     The goal is to produce a very consistent and magical admin based on
@@ -59,7 +99,7 @@ class PublicaAdminMixin(object):
                                     self.list_display += (field.name, )
 
 
-        return super(PublicaAdminMixin, self).get_list_display(request)
+        return super(PublicaModelAdminMixin, self).get_list_display(request)
 
 
 class TinyMCETextMixin(object):

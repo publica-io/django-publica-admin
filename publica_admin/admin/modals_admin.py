@@ -26,7 +26,7 @@ else:
         )
 
 
-    class ModalAdmin(PublicaAdminMixin, TemplatesAdminMixin, admin.ModelAdmin):
+    class ModalAdmin(PublicaModelAdminMixin, TemplatesAdminMixin, admin.ModelAdmin):
 
         exclude = (
             'preview_template',

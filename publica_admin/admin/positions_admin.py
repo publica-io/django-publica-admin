@@ -13,7 +13,7 @@ else:
     from ..mixins import *
 
 
-    class PositionAdmin(PublicaAdminMixin, admin.ModelAdmin):
+    class PositionAdmin(PublicaModelAdminMixin, admin.ModelAdmin):
         pass
 
     admin.site.register(Position, PositionAdmin)

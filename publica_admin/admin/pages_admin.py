@@ -22,7 +22,7 @@ else:
         sortable_field_name = "order"
 
 
-    class PageAdmin(PublicaAdminMixin, TemplatesAdminMixin, admin.ModelAdmin):
+    class PageAdmin(PublicaModelAdminMixin, TemplatesAdminMixin, admin.ModelAdmin):
         
         exclude = (
             'template',
