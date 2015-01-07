@@ -27,9 +27,6 @@ else:
 
 
     class ModalAdmin(PublicaModelAdminMixin, TemplatesAdminMixin, admin.ModelAdmin):
-        exclude = (
-            'preview_template',
-        )
         fields = (
             'title',
             'slug',

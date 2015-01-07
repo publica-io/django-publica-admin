@@ -23,10 +23,6 @@ else:
 
 
     class PageAdmin(PublicaModelAdminMixin, TemplatesAdminMixin, admin.ModelAdmin):
-        exclude = (
-            'template',
-            'preview_template',
-        )
         fields = (
             'title',
             'slug',

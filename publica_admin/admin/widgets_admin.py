@@ -28,10 +28,6 @@ else:
 
 
     class WidgetAdmin(TemplatesAdminMixin, admin.ModelAdmin):
-        exclude = (
-            'preview_template',
-        )
-        '''
         fields = (
             'title',
             'slug',
@@ -41,7 +37,6 @@ else:
             'featured',
             'enabled'
         )
-        '''
         inlines = [
             AttrInline,
             ImageInline,
@@ -56,10 +51,6 @@ else:
 
 
     class WidgetModalAdmin(WidgetAdmin):
-        exclude = (
-            'preview_template',
-            'template',
-        )
         fields = (
             'title',
             'slug',
@@ -83,12 +74,6 @@ else:
 
 
     class WidgetListAdmin(WidgetAdmin):
-        exclude = (
-            'featured',
-            'preview_template',
-            'template',
-            'type',
-        )
         fields = (
             'title',
             'slug',
@@ -126,10 +111,6 @@ else:
         ]
 
     class WidgetMapAdmin(WidgetAdmin):
-        exclude = (
-            'preview_template',
-            'template',
-        )
         fields = (
             'title',
             'slug',

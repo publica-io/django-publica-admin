@@ -27,9 +27,6 @@ else:
 
 
     class ViewAdmin(TemplatesAdminMixin, PublicaModelAdminMixin, admin.ModelAdmin):
-        exclude = (
-            'preview_template',
-        )
         fields = (
             'title',
             'slug',
