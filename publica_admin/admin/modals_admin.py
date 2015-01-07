@@ -27,16 +27,25 @@ else:
 
 
     class ModalAdmin(PublicaModelAdminMixin, TemplatesAdminMixin, admin.ModelAdmin):
-
         exclude = (
             'preview_template',
         )
-
+        fields = (
+            'title',
+            'slug',
+            'short_title',
+            'text',
+            'template',
+            'enabled'
+        )
         inlines = [
             AttrInline,
             ImageInline,
             ModalLinkAspectInline
         ]
+        prepopulated_fields = {
+            'slug': ('title', )
+        }
 
         class Media:
             js = TinyMCETextMixin.Media.js

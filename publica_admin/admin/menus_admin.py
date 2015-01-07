@@ -10,7 +10,7 @@ else:
     from images_admin import ImageInline
 
     from ..mixins import PublicaModelAdminMixin
-    
+
 
     class MenuItemInline(GrappelliSortableHiddenMixin, admin.StackedInline):
 
@@ -28,7 +28,7 @@ else:
 
             if db_field.name == "parent":
                 if request._obj_ is not None:
-                    field.queryset = field.queryset.filter(menu = request._obj_)  
+                    field.queryset = field.queryset.filter(menu = request._obj_)
                 else:
                     field.queryset = field.queryset.none()
 
@@ -36,10 +36,19 @@ else:
 
 
     class MenuAdmin(PublicaModelAdminMixin, admin.ModelAdmin):
-
+        fields = (
+            'title',
+            'slug',
+            'short_title',
+            'position',
+            'enabled'
+        )
         inlines = [
             MenuItemInline
         ]
+        prepopulated_fields = {
+            'slug': ('title', )
+        }
 
         def get_form(self, request, obj=None, **kwargs):
             # just save obj reference for future processing in Inline
@@ -48,7 +57,17 @@ else:
 
 
     class LinkAdmin(PublicaModelAdminMixin, admin.ModelAdmin):
-
+        fieldsets = (
+            (None, {
+                'fields': ('title', 'open_in_new_tab')
+            }),
+            ('External Link', {
+                'fields': ('url', )
+            }),
+            ('Internal Link', {
+                'fields': ('content_type', 'object_id')
+            })
+        )
         related_lookup_fields = {
             'generic': [['content_type', 'object_id'], ],
         }

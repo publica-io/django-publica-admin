@@ -14,6 +14,14 @@ else:
 
 
     class PositionAdmin(PublicaModelAdminMixin, admin.ModelAdmin):
-        pass
+        fields = (
+            'title',
+            'slug',
+            'short_title',
+            'enabled'
+        )
+        prepopulated_fields = {
+            'slug': ('title', )
+        }
 
     admin.site.register(Position, PositionAdmin)

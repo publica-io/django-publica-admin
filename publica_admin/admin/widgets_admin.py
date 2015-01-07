@@ -28,27 +28,47 @@ else:
 
 
     class WidgetAdmin(TemplatesAdminMixin, admin.ModelAdmin):
-
-
+        exclude = (
+            'preview_template',
+        )
+        '''
+        fields = (
+            'title',
+            'slug',
+            'short_title',
+            'text',
+            'template',
+            'featured',
+            'enabled'
+        )
+        '''
         inlines = [
             AttrInline,
             ImageInline,
             WidgetLinkAspectInline
         ]
-
-        exclude = (
-            'preview_template',
-        )
+        prepopulated_fields = {
+            'slug': ('title', )
+        }
 
         class Media:
             js = TinyMCETextMixin.Media.js
 
 
     class WidgetModalAdmin(WidgetAdmin):
-
         exclude = (
             'preview_template',
             'template',
+        )
+        fields = (
+            'title',
+            'slug',
+            'short_title',
+            'text',
+            'content_type',
+            'object_id',
+            'featured',
+            'enabled'
         )
 
         class Media:
@@ -63,12 +83,18 @@ else:
 
 
     class WidgetListAdmin(WidgetAdmin):
-
         exclude = (
             'featured',
             'preview_template',
             'template',
             'type',
+        )
+        fields = (
+            'title',
+            'slug',
+            'short_title',
+            'text',
+            'enabled'
         )
         inlines = [
             WidgetListItemInline,
@@ -86,19 +112,31 @@ else:
 
 
     class WidgetMapPOIAdmin(admin.ModelAdmin):
-
+        fieldsets = (
+            (None, {
+                'fields': ('title', 'slug', 'short_title', 'text', 'widget')
+            }),
+            ('Location', {
+                'fields': ('activity', 'venue', 'x', 'y')
+            }),
+        )
         inlines = [
             AttrInline,
             ImageInline,
         ]
 
     class WidgetMapAdmin(WidgetAdmin):
-
         exclude = (
             'preview_template',
             'template',
         )
-        
+        fields = (
+            'title',
+            'slug',
+            'short_title',
+            'text',
+            'enabled'
+        )
         inlines = [
             AttrInline,
             ImageInline,

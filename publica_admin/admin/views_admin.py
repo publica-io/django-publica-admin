@@ -12,7 +12,12 @@ else:
 
 
     class ViewLinkageInline(admin.StackedInline):
-
+        fields = (
+            'order',
+            'content_type',
+            'object_id',
+            'enabled'
+        )
         model = ViewLinkage
         extra = 0
 
@@ -22,15 +27,24 @@ else:
 
 
     class ViewAdmin(TemplatesAdminMixin, PublicaModelAdminMixin, admin.ModelAdmin):
-
         exclude = (
             'preview_template',
         )
-        
+        fields = (
+            'title',
+            'slug',
+            'short_title',
+            'text',
+            'template',
+            'enabled'
+        )
         inlines = [
             ViewLinkageInline,
             ImageInline,
         ]
+        prepopulated_fields = {
+            'slug': ('title', )
+        }
 
         class Media:
             js = TinyMCETextMixin.Media.js

@@ -23,16 +23,24 @@ else:
 
 
     class PageAdmin(PublicaModelAdminMixin, TemplatesAdminMixin, admin.ModelAdmin):
-        
         exclude = (
             'template',
             'preview_template',
         )
-
+        fields = (
+            'title',
+            'slug',
+            'short_title',
+            'text',
+            'enabled'
+        )
         inlines = [
             PageViewAdminInline,
             ImageInline,
         ]
+        prepopulated_fields = {
+            'slug': ('title', )
+        }
 
         class Media:
             js = TinyMCETextMixin.Media.js
